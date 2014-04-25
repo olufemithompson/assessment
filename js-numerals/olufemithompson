@@ -1,0 +1,163 @@
+<html>
+   <script>
+      var basicmap = new Object();
+      basicmap['1'] = "One";
+      basicmap['2'] = "Two";
+      basicmap['3'] = "Three";
+      basicmap['4'] = "Four";
+      basicmap['5'] = "Five";
+      basicmap['6'] = "Six";
+      basicmap['7'] = "Seven";
+      basicmap['8'] = "Eight";
+      basicmap['9'] = "Nine";
+      basicmap['10'] = "Ten";
+      basicmap['11'] = "Eleven";
+      basicmap['12'] = "Twelve";
+      basicmap['13'] = "Thirteen";
+      basicmap['14'] = "Fourteen";
+      basicmap['15'] = "Fifteen";
+      basicmap['16'] = "Sixteen";
+      basicmap['17'] = "Seventeen";
+      basicmap['18'] = "Eighting";
+      basicmap['19'] = "Nineteen";
+      
+      var map = new Object();
+      map['2'] = "Twenty";
+      map['3'] = "Thirty";
+      map['4'] = "Fourty";
+      map['5'] = "Fifty";
+      map['6'] = "Sixty";
+      map['7'] = "Seventy";
+      map['8'] = "Eighty";
+      map['9'] = "Ninety";
+      
+      
+      function getSingle(number){
+        return basicmap[number];
+      }
+      
+      
+      function getDouble(number){
+      	if(number.substring(0,1) == "0"){
+                 number = number.substring(1);
+               }
+              if(number.length == 1){
+                   return getSingle(number);
+              }else{
+      	if(number < 20){
+      		return basicmap[number];
+      	}else{
+      		var first = number.substring(0, 1);
+      		var second = number.substring(1);
+      		if(second == "0"){
+      			return map[first];
+      		}else{
+      		     return (map[first] + " " +basicmap[second]);
+      		}
+      	  }
+      	}
+      }
+      
+      
+      function getThriple(number){
+                      if(number.substring(0,1) == "0"){
+                         if(number.substring(1,2) == "0"){
+      		     number = number.substring(2);
+      		   }else{
+      			 number = number.substring(1);
+      		  }				
+      		  
+      		 }
+      		
+                      if(number.length == 1){
+                        return getSingle(number);
+                      }else if(number.length == 2){
+                        return getDouble(number);
+                      }else {
+                            
+      			var first = number.substring(0, 1);
+      			var second = number.substring(1,2);
+      			var third = number.substring(2);
+      			if(second == "0"){
+                                  if(third == "0"){
+      				return (getSingle(first) + " hundred");
+      			    }else{
+      			    	return (getSingle(first) + " hundred and " + getSingle(third)) ;
+      			    }
+      			}else{
+      			    return (getSingle(first) + " hundred and " + getDouble(second+third));
+      			}
+                    }
+       }
+      
+      function getFour(number){
+                             var first = number.substring(0,2);
+      			var second = number.substring(2);
+      			if(second == "00"){
+      				return(getDouble(first) + " hundred");
+      			}else{
+      				return(getDouble(first) + " hundred and " +getDouble(second));
+      			}
+      }
+      
+      
+      function getFive(number){
+                              var first = number.substring(0,2);
+      			var second = number.substring(2);
+      			if(second == "000"){
+      				return(getDouble(first) + " thousand");
+      			}else if(second.substring(0,1) == "0"){
+      				return(getDouble(first) + " thousand and " + getThriple(second));
+      			} else{
+      				return(getDouble(first) + " thousand " + getThriple(second));
+      			}
+      }
+      
+      function getSix(number){
+                              var first = number.substring(0,3);
+      			
+      			var second = number.substring(3);
+      			if(second == "000"){
+      				return(getThriple(first) + " thousand");
+      			}else if(second.substring(0,1) == "0"){
+      				return(getThriple(first) + " thousand and " + getThriple(second));
+      			} else{
+      				return(getThriple(first) + " thousand " + getThriple(second));
+      			}
+      }
+      
+      
+      function covert(){
+
+      var number = document.getElementById('number').value;
+      var numberLength = number.length;
+      if(numberLength == 0){
+	   alert('Please enter a number');
+      }else{
+      if (isNaN(number)) 
+	  {
+	    alert("Must input numbers");
+	    return false;
+	  }
+      
+      if(numberLength == 1){
+      	alert(getSingle(number));
+      }else if(numberLength == 2){
+         alert(getDouble(number));
+      }else if(numberLength == 3){
+      	alert(getThriple(number));
+      }
+      else if(numberLength == 4){
+      alert(getFour(number));
+      }else if(numberLength == 5){
+      alert(getFive(number));
+      }else if(numberLength == 6){
+      alert(getSix(number));
+      }  
+	}
+      }
+      
+   </script>
+   <input type = "text" id = "number" />
+   <input type = "button" onclick = "covert();"  value="convert"/>
+</html>
